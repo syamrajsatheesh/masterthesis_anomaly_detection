@@ -2,7 +2,8 @@ from typing import Any, Dict, List, Tuple
 
 import torch
 from torch.utils.data import DataLoader
-from ..metrics import get_auroc, get_aupr
+import numpy as np
+from sklearn import metrics
 
 
 class RaPP:
@@ -109,3 +110,12 @@ class RaPP:
             "nap_aupr": nap_aupr,
         }
         return result
+
+def get_auroc(label: np.ndarray, score: np.ndarray) -> float:
+    fprs, tprs, _ = metrics.roc_curve(label, score)
+    return metrics.auc(fprs, tprs)
+
+
+def get_aupr(label: np.ndarray, score: np.ndarray) -> float:
+    precisions, recalls, _ = metrics.precision_recall_curve(label, score)
+    return metrics.auc(recalls, precisions)
