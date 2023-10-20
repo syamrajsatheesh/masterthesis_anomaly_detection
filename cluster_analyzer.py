@@ -38,26 +38,3 @@ class ClusterAnalyzer:
         velocity = (self.cluster_centers - previous_centers) / time_interval
         return velocity
 
-if __name__ == "__main__":
-    # Generate some sample data
-    np.random.seed(0)
-    data = np.random.rand(200, 2) * 10
-
-    # Create a ClusterAnalyzer
-    cluster_analyzer = ClusterAnalyzer(data)
-
-    # Find the optimal number of clusters
-    num_clusters = cluster_analyzer.find_optimal_clusters(max_clusters=10)
-    print(f"The optimal number of clusters is: {num_clusters}")
-
-    # Analyze the clusters
-    cluster_analyzer.analyze_clusters(num_clusters)
-
-    # Calculate cluster density
-    cluster_density = cluster_analyzer.calculate_density()
-    print(f"Cluster Density: {cluster_density}")
-
-    # Calculate cluster velocity (assuming a time interval of 1)
-    previous_centers = None  # Set previous_centers to the centers at the previous time step
-    cluster_velocity = cluster_analyzer.calculate_velocity(previous_centers)
-    print(f"Cluster Velocity: {cluster_velocity}")

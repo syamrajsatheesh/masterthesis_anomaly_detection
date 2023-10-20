@@ -31,16 +31,3 @@ class ClusterGenerator:
             center += velocity  # Move the center according to the velocity
         return data
 
-if __name__ == "__main__":
-    cluster_gen = ClusterGenerator(num_clusters=3)
-
-    # Add clusters with their centers, velocities, and number of data points
-    cluster_gen.add_cluster(center=[0, 0], velocity=[0.02, 0.02], num_points=100)
-    cluster_gen.add_cluster(center=[5, 5], velocity=[-0.02, -0.02], num_points=100)
-    cluster_gen.add_cluster(center=[-5, 5], velocity=[0.01, -0.01], num_points=100)
-
-    generated_data = cluster_gen.generate_clusters()
-
-    # Print the generated data
-    for point in generated_data:
-        print(point)
