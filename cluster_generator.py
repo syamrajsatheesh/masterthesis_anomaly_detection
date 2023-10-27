@@ -1,15 +1,34 @@
 import numpy as np
 
 class ClusterGenerator:
-    def __init__(self, num_clusters):
+    def __init__(self, num_clusters, num_points_per_cluster=1000):
         self.num_clusters = num_clusters
+        self.num_points_per_cluster = num_points_per_cluster
         self.clusters = []
+        self.index = 0
+        self.cluster = 0
+        self.cycle = 0
 
-    def add_cluster(self, center, velocity, num_points):
+    def add_cluster(self, center=None,
+                    radius = 100,
+                    velocity=0,
+                    change_in_radius=False,
+                    change_in_velocity=False,
+                    change_in_density=False,
+                    appears_later=False,
+                    disappears=False,
+                    merge=False):
         cluster = {
             "center": center,
+            "num_points": self.num_points_per_cluster,
+            "radius" : radius,
             "velocity": velocity,
-            "num_points": num_points,
+            "change_in_radius" : change_in_radius,
+            "change_in_velocity" : change_in_velocity,
+            "change_in_density" : change_in_density,
+            "appears_later" : appears_later,
+            "disappears" : disappears,
+            "merge" : merge,
         }
         self.clusters.append(cluster)
 
@@ -18,7 +37,7 @@ class ClusterGenerator:
         for cluster in self.clusters:
             center = cluster["center"]
             velocity = cluster["velocity"]
-            num_points = cluster["num_points"]
+            num_points = self.num_points_per_cluster
             cluster_data = self.generate_cluster_data(center, velocity, num_points)
             data.extend(cluster_data)
         return data
@@ -30,4 +49,6 @@ class ClusterGenerator:
             data.append(point)
             center += velocity  # Move the center according to the velocity
         return data
-
+    
+    def get_instance():
+        pass
