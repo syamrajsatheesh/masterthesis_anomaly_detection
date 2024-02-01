@@ -1,10 +1,12 @@
 import numpy as np
 
 class ClusterGenerator:
-    def __init__(self, num_clusters, num_points_per_cluster=1000):
+    def __init__(self, num_dimensions, num_clusters, num_points_per_cluster=1000, num_point_anomalies=10):
+        self.num_dim = num_dimensions
         self.num_clusters = num_clusters
         self.num_points_per_cluster = num_points_per_cluster
         self.clusters = []
+        self.num_point_anom = num_point_anomalies
         self.index = 0
         self.cluster = 0
         self.cycle = 0
@@ -19,6 +21,7 @@ class ClusterGenerator:
                     disappears=False,
                     merge=False):
         cluster = {
+            "dimension": self.num_dim,
             "center": center,
             "num_points": self.num_points_per_cluster,
             "radius" : radius,
@@ -40,6 +43,13 @@ class ClusterGenerator:
             num_points = self.num_points_per_cluster
             cluster_data = self.generate_cluster_data(center, velocity, num_points)
             data.extend(cluster_data)
+
+
+
+            # Generate anomalies
+        anomalies = np.random.rand(self.num_point_anom, self.num_dim)
+        for i in range(self.num_dim):
+            anomalies[:, i] = anomalies[:, i] * (max(X[:, i]) - min(X[:, i])) + min(X[:, i])
         return data
 
     def generate_cluster_data(self, center, velocity, num_points):
