@@ -34,3 +34,5 @@ class ScoringProgram:
                 plt.text(j, i, str(self.conf_matrix[i, j]), ha='center', va='center', color='white' if self.conf_matrix[i, j] > len(self.real_values)//2 else 'black')
 
         plt.show()
+
+        hgsfgdsf
